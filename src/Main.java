@@ -3,15 +3,17 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class Main {
     private static String followupCommand;
     private static int followUpIntCommand;
-//    private static float followUpFloatCommand;
     private static String subCommand;
     private static String optionParameter;
+    private static boolean quit = false;
 
 
     public static void main(String[] args) {
@@ -91,6 +93,9 @@ public class Main {
 //                getUserInput();
 //            }
             getUserInput();
+            fetchData(studentsList);
+
+            //not to put session ended when loop ends
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,6 +117,14 @@ public class Main {
         int spaceHolder = 0;
         int startIndex = 0;
         for(int i=0;i<userInput.length();i++){
+            if(userInput.toLowerCase().charAt(0) == 'i'){
+                optionParameter = "info";
+                break;
+            }
+            if(userInput.toLowerCase().charAt(0) == 'q'){
+                optionParameter = "quit";
+                break;
+            }
             if(userInput.charAt(i) == ' '){
                 spaceHolder++;
                 spaceCounter = spaceHolder;
@@ -120,29 +133,197 @@ public class Main {
                 optionParameter = userInput.substring(startIndex, i);
                 startIndex = i+1;
                 spaceCounter = 0;
-                System.out.println(optionParameter);
             }
             if(spaceCounter == 2){
-                if(optionParameter.equalsIgnoreCase("s") || optionParameter.equalsIgnoreCase("students")){
+                if(optionParameter.equalsIgnoreCase("s") || optionParameter.equalsIgnoreCase("student")){
                     followupCommand = userInput.substring(startIndex, i);
-                    System.out.println(followupCommand);
                 }
                 if(optionParameter.equalsIgnoreCase("g") || optionParameter.equalsIgnoreCase("grade")){
                     followUpIntCommand = Integer.parseInt(userInput.substring(startIndex, i));
-                    System.out.println(followUpIntCommand);
                 }
                 startIndex = i+1;
-                
+                subCommand = userInput.substring(startIndex, userInput.length());
                 break;
             }
-            if(i == userInput.length() - 1 && (optionParameter.equalsIgnoreCase("s") || optionParameter.equalsIgnoreCase("students")
-                    || optionParameter.equalsIgnoreCase("g") || optionParameter.equalsIgnoreCase("grade")) ){
-                subCommand = userInput.substring(startIndex,i+1);
-                System.out.println(subCommand);
+            if(i == userInput.length() - 1){
+                if(optionParameter.equalsIgnoreCase("t") || optionParameter.equalsIgnoreCase("teacher")
+                || optionParameter.equalsIgnoreCase("s") || optionParameter.equalsIgnoreCase("student")){
+                    followupCommand = userInput.substring(startIndex, i+1);
+                    subCommand = "";
+                }
+                if(optionParameter.equalsIgnoreCase("b") || optionParameter.equalsIgnoreCase("bus")
+                || optionParameter.equalsIgnoreCase("g") || optionParameter.equalsIgnoreCase("grade")
+                || optionParameter.equalsIgnoreCase("a") || optionParameter.equalsIgnoreCase("average")){
+                    followUpIntCommand = Integer.parseInt(userInput.substring(startIndex, i+1));
+                    subCommand = "";
+                }
             }
 
         }
+    }
+    public static void fetchData(ArrayList<StudentsInfo> studentList){
+        //student without bus param
+        if((optionParameter.equalsIgnoreCase("student") || optionParameter.equalsIgnoreCase("s")) &&
+                (!subCommand.equalsIgnoreCase("bus") || !subCommand.equalsIgnoreCase("b"))){
+            for(int i=0;i<studentList.size();i++){
+                if(followupCommand.equalsIgnoreCase(studentList.get(i).getStudentLastName())){
+                    System.out.println("LastName: " + studentList.get(i).getStudentLastName() + " first name: " +
+                            studentList.get(i).getStudentFirstName() + "Grade: " + studentList.get(i).getGrade() +
+                            " ClassRoom Assignment: " + studentList.get(i).getClassRoom() + " T_FirstName: " +
+                            studentList.get(i).getTFirstName() + " T_LastName: " +
+                            studentList.get(i).getTLastName());
+                    System.out.println("\n \n");
+                }
+            }
 
-//        System.out.println(userInput);
+        }
+        //student with bus param
+        if((optionParameter.equalsIgnoreCase("student") || optionParameter.equalsIgnoreCase("s")) &&
+                (subCommand.equalsIgnoreCase("bus") || subCommand.equalsIgnoreCase("b"))){
+            for(int i=0;i<studentList.size();i++){
+                if(followupCommand.equalsIgnoreCase(studentList.get(i).getStudentLastName())){
+                    System.out.println("LastName: " + studentList.get(i).getStudentLastName() + " first name: " +
+                            studentList.get(i).getStudentFirstName() + " Bus Route: " + studentList.get(i).getBus());
+                    System.out.println("\n \n");
+                }
+            }
+
+        }
+        //option parameter  = teacher
+        if(optionParameter.equalsIgnoreCase("teacher") || optionParameter.equalsIgnoreCase("t")){
+            for(int i=0;i<studentList.size();i++){
+                if(followupCommand.equalsIgnoreCase(studentList.get(i).getTLastName())){
+                    System.out.println(" LastName: " + studentList.get(i).getStudentLastName() + " first name: " +
+                            studentList.get(i).getStudentFirstName());
+                    System.out.println("\n \n");
+                }
+            }
+
+        }
+        //option parameter  = Bus
+        if(optionParameter.equalsIgnoreCase("bus") || optionParameter.equalsIgnoreCase("b")){
+            for(int i=0;i<studentList.size();i++){
+                if(followUpIntCommand == studentList.get(i).getBus()){
+                    System.out.println(" LastName: " + studentList.get(i).getStudentLastName() + " first name: " +
+                            studentList.get(i).getStudentFirstName() + " Grade: " + studentList.get(i).getGrade() +
+                            " ClassRoom: " + studentList.get(i).getClassRoom());
+                    System.out.println("\n \n");
+                }
+            }
+
+        }
+        //option parameter  = Average
+        if(optionParameter.equalsIgnoreCase("Average") || optionParameter.equalsIgnoreCase("a")){
+            double averageGPA = 0.00;
+            int count = 0;
+            for(int i=0;i<studentList.size();i++){
+                if(followUpIntCommand == studentList.get(i).getGrade()){
+                    count++;
+                    averageGPA += studentList.get(i).getGPA();
+                }
+            }
+            averageGPA = averageGPA/count;
+            System.out.println(" GradeLevel: " + followUpIntCommand + " Average Gpa computed: " + averageGPA);
+            System.out.println("\n \n");
+        }
+        //option parameter  = Info
+        if(optionParameter.equalsIgnoreCase("info") || optionParameter.equalsIgnoreCase("i")) {
+            infoFunc(studentList);
+        }
+        //option parameter = quit
+        if(optionParameter.equalsIgnoreCase("quit") || optionParameter.equalsIgnoreCase("q")) {
+            quit = true;
+        }
+
+        //option parameter = Grade without sub param
+        if((optionParameter.equalsIgnoreCase("grade") || optionParameter.equalsIgnoreCase("g")) &&
+                (!subCommand.equalsIgnoreCase("high") || !subCommand.equalsIgnoreCase("h") ||
+                        !subCommand.equalsIgnoreCase("low") || !subCommand.equalsIgnoreCase("l"))){
+            for(int i=0;i<studentList.size();i++){
+                if(followUpIntCommand == studentList.get(i).getGrade()){
+                    System.out.println("LastName: " + studentList.get(i).getStudentLastName() + " first name: " +
+                            studentList.get(i).getStudentFirstName());
+                    System.out.println("\n \n");
+                }
+            }
+        }
+        //option parameter = grade with high sub param
+        if((optionParameter.equalsIgnoreCase("grade") || optionParameter.equalsIgnoreCase("g")) &&
+                (!subCommand.equalsIgnoreCase("high") || !subCommand.equalsIgnoreCase("h"))){
+            StudentsInfo highVal = null;
+            double maxGPA = 0.00;
+            for(int i=0;i<studentList.size();i++){
+                if(followUpIntCommand == studentList.get(i).getGrade()){
+                    if(studentList.get(i).getGPA() > maxGPA){
+                        maxGPA = studentList.get(i).getGPA();
+                        highVal = studentList.get(i);
+                    }
+                }
+            }
+            //have the access to the instance that have the max GPA and provided grade
+            if(highVal != null) {
+                System.out.println("LastName: " + highVal.getStudentLastName() + " first name: " +
+                        highVal.getStudentFirstName() + " Grade: " + highVal.getGrade() +
+                        " GPA: " + highVal.getGPA() + " T_FirstName: " +
+                        highVal.getTFirstName() + " T_LastName: " +
+                        highVal.getTLastName() + " Bus Route: " + highVal.getBus());
+                System.out.println("\n \n");
+            }
+            else {
+                System.out.println("No relevant data found.");
+            }
+        }
+
+        //option parameter = grade with low sub param
+        if((optionParameter.equalsIgnoreCase("grade") || optionParameter.equalsIgnoreCase("g")) &&
+                (!subCommand.equalsIgnoreCase("low") || !subCommand.equalsIgnoreCase("l"))){
+            StudentsInfo lowVal = null;
+            double minGPA = Double.MAX_VALUE;
+            for(int i=0;i<studentList.size();i++){
+                if(followUpIntCommand == studentList.get(i).getGrade()){
+                    if(studentList.get(i).getGPA() < minGPA){
+                        minGPA = studentList.get(i).getGPA();
+                        lowVal = studentList.get(i);
+                    }
+                }
+            }
+            //have the access to the instance that have the min GPA and provided grade
+            if(lowVal != null) {
+                System.out.println("LastName: " + lowVal.getStudentLastName() + " first name: " +
+                        lowVal.getStudentFirstName() + " Grade: " + lowVal.getGrade() +
+                        " GPA: " + lowVal.getGPA() + " T_FirstName: " +
+                        lowVal.getTFirstName() + " T_LastName: " +
+                        lowVal.getTLastName() + " Bus Route: " + lowVal.getBus());
+                System.out.println("\n \n");
+            }
+            else {
+                System.out.println("No relevant data found.");
+            }
+        }
+
+    }
+
+    public static void infoFunc(ArrayList<StudentsInfo> studentList){
+        int[] gradeStudents = new int[7];
+        HashMap<Integer, Integer> classMap = new HashMap<>(); // student: key, grade: value
+        for(int i=0;i<gradeStudents.length;i++){    //set all the initial grade value to 0
+            gradeStudents[i] = 0;
+        }
+
+        for(int i=0;i<studentList.size();i++){  //for each grade update the count value
+            gradeStudents[studentList.get(i).getGrade()]++;
+        }
+
+        //store the value of students and grade in hashmap
+        for(int i=0;i<gradeStudents.length;i++){
+            classMap.put(gradeStudents[i], i);
+        }
+
+        //sort this array in ascending order
+        Arrays.sort(gradeStudents);
+        for(int i=0;i<gradeStudents.length;i++){
+            System.out.println("Grade: " + classMap.get(gradeStudents[i]) + " Number of Students: " + gradeStudents[i]);
+        }
+
     }
 }
