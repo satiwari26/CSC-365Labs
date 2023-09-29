@@ -2,10 +2,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class Main {
@@ -18,7 +17,8 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList studentsList = new ArrayList<StudentsInfo>();
-        String filePath = "C:\\Users\\tiwar\\Desktop\\dataBaseLabs\\findInformation\\src\\students.txt";
+//        String currentDirectory = System.getProperty("user.dir");
+        String filePath = "src\\students.txt";
         StudentsInfo tempInfo = new StudentsInfo();
         try {
             String data = new String(Files.readAllBytes(Paths.get(filePath)), Charset.defaultCharset());
@@ -150,7 +150,12 @@ public class Main {
                 if(optionParameter.equalsIgnoreCase("b") || optionParameter.equalsIgnoreCase("bus")
                 || optionParameter.equalsIgnoreCase("g") || optionParameter.equalsIgnoreCase("grade")
                 || optionParameter.equalsIgnoreCase("a") || optionParameter.equalsIgnoreCase("average")){
-                    followUpIntCommand = Integer.parseInt(userInput.substring(startIndex, i+1));
+                    try {
+                        followUpIntCommand = Integer.parseInt(userInput.substring(startIndex, i + 1));
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     subCommand = "";
                 }
             }
@@ -301,7 +306,7 @@ public class Main {
 
     public static void infoFunc(ArrayList<StudentsInfo> studentList){
         int[] gradeStudents = new int[7];
-        HashMap<Integer, Integer> classMap = new HashMap<>(); // student: key, grade: value
+        ArrayList<studentGradeNumbers> studentGradeList = new ArrayList<>();
         for(int i=0;i<gradeStudents.length;i++){    //set all the initial grade value to 0
             gradeStudents[i] = 0;
         }
@@ -310,15 +315,23 @@ public class Main {
             gradeStudents[studentList.get(i).getGrade()]++;
         }
 
-        //store the value of students and grade in hashmap
+        //store the value of students and grade in collection list
         for(int i=0;i<gradeStudents.length;i++){
-            classMap.put(gradeStudents[i], i);
+            studentGradeNumbers studentGradeInfo = new studentGradeNumbers(gradeStudents[i], i);
+            studentGradeList.add(studentGradeInfo);
         }
 
         //sort this array in ascending order
-        Arrays.sort(gradeStudents);
-        for(int i=1;i<gradeStudents.length;i++){
-            System.out.println("Grade: " + classMap.get(gradeStudents[i]) + " Number of Students: " + gradeStudents[i]);
+        Collections.sort(studentGradeList, new Comparator<studentGradeNumbers>() {
+            @Override
+            public int compare(studentGradeNumbers student1, studentGradeNumbers student2) {
+                return Integer.compare(student1.getNumberStudents(), student2.getNumberStudents());
+            }
+        });
+
+        for(int i=1;i<studentGradeList.size();i++){
+            System.out.println("Grade: " + studentGradeList.get(i).getGradeNumber() + " Number of Students: " +
+                    studentGradeList.get(i).getNumberStudents());
         }
 
     }
