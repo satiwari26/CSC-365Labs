@@ -16,9 +16,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         ArrayList studentsList = new ArrayList<StudentsInfo>();
 //        String currentDirectory = System.getProperty("user.dir");
-        String filePath = "src\\students.txt";
+        String filePath = ".\\src\\students.txt";
         StudentsInfo tempInfo = new StudentsInfo();
         try {
             String data = new String(Files.readAllBytes(Paths.get(filePath)), Charset.defaultCharset());
@@ -84,12 +85,17 @@ public class Main {
                     studentsList.add(storeInfo);
                 }
             }
-//            while(true) {
-//                displayMenu();
-//                getUserInput();
-//            }
-            getUserInput();
-            fetchData(studentsList);
+            int counter = 0;
+            while(!quit) {
+                displayMenu();
+                if(args.length == 0){   //running the command line
+                    getUserInput("");
+                }else{
+                    getUserInput(args[counter]);  //running the test script
+                    counter++;
+                }
+                fetchData(studentsList);
+            }
 
             //not to put session ended when loop ends
 
@@ -104,11 +110,18 @@ public class Main {
         for(int i=0; i< options.length; i++){
             System.out.println(i+1 + ")" + options[i]);
         }
+        System.out.println("Enter the Searchable parameters seperated by `spaces`. \n");
+        System.out.println("EX: `student: woolery bus` \n `s:` woolery bus");
 
     }
-    public static void getUserInput(){
-        Scanner scan = new Scanner(System.in);
-        String userInput = scan.nextLine();
+    public static void getUserInput(String args){
+        String userInput = "";
+        if(args == "") {    //input provided from the console
+            Scanner scan = new Scanner(System.in);
+            userInput = scan.nextLine();
+        }else{  //input provided from the Test script
+            userInput = args;
+        }
         int spaceCounter = 0;
         int spaceHolder = 0;
         int startIndex = 0;
@@ -126,22 +139,35 @@ public class Main {
                 spaceCounter = spaceHolder;
             }
             if(spaceCounter == 1){
-                optionParameter = userInput.substring(startIndex, i);
+                optionParameter = userInput.substring(startIndex, i-1);
                 startIndex = i+1;
                 spaceCounter = 0;
             }
             if(spaceCounter == 2){
+                if(optionParameter == null){
+                    System.out.println("Option parameter is not provided");
+                    break;
+                }
                 if(optionParameter.equalsIgnoreCase("s") || optionParameter.equalsIgnoreCase("student")){
                     followupCommand = userInput.substring(startIndex, i);
                 }
                 if(optionParameter.equalsIgnoreCase("g") || optionParameter.equalsIgnoreCase("grade")){
-                    followUpIntCommand = Integer.parseInt(userInput.substring(startIndex, i));
+                    try {
+                        followUpIntCommand = Integer.parseInt(userInput.substring(startIndex, i));
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                 }
                 startIndex = i+1;
                 subCommand = userInput.substring(startIndex, userInput.length());
                 break;
             }
             if(i == userInput.length() - 1){
+                if(optionParameter == null){
+                    System.out.println("Option parameter is not provided");
+                    break;
+                }
                 if(optionParameter.equalsIgnoreCase("t") || optionParameter.equalsIgnoreCase("teacher")
                 || optionParameter.equalsIgnoreCase("s") || optionParameter.equalsIgnoreCase("student")){
                     followupCommand = userInput.substring(startIndex, i+1);
@@ -163,9 +189,15 @@ public class Main {
         }
     }
     public static void fetchData(ArrayList<StudentsInfo> studentList){
+        if(optionParameter == null){
+            return;
+        }
         //student without bus param
         if((optionParameter.equalsIgnoreCase("student") || optionParameter.equalsIgnoreCase("s")) &&
                 !(subCommand.equalsIgnoreCase("bus") || subCommand.equalsIgnoreCase("b"))){
+            if(followupCommand == null){
+                return;
+            }
             for(int i=0;i<studentList.size();i++){
                 if(followupCommand.equalsIgnoreCase(studentList.get(i).getStudentLastName())){
                     System.out.println("LastName: " + studentList.get(i).getStudentLastName() + " firstName: " +
@@ -181,6 +213,9 @@ public class Main {
         //student with bus param
         if((optionParameter.equalsIgnoreCase("student") || optionParameter.equalsIgnoreCase("s")) &&
                 (subCommand.equalsIgnoreCase("bus") || subCommand.equalsIgnoreCase("b"))){
+            if(followupCommand == null){
+                return;
+            }
             for(int i=0;i<studentList.size();i++){
                 if(followupCommand.equalsIgnoreCase(studentList.get(i).getStudentLastName())){
                     System.out.println("LastName: " + studentList.get(i).getStudentLastName() + " firstName: " +
@@ -192,6 +227,9 @@ public class Main {
         }
         //option parameter  = teacher
         if(optionParameter.equalsIgnoreCase("teacher") || optionParameter.equalsIgnoreCase("t")){
+            if(followupCommand == null){
+                return;
+            }
             for(int i=0;i<studentList.size();i++){
                 if(followupCommand.equalsIgnoreCase(studentList.get(i).getTLastName())){
                     System.out.println(" LastName: " + studentList.get(i).getStudentLastName() + " first name: " +
