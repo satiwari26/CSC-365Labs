@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class Main {
+public class schoolSearch {
     private static String followupCommand;
     private static int followUpIntCommand;
     private static String subCommand;
@@ -17,9 +17,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList studentsList = new ArrayList<StudentsInfo>();
+        ArrayList<StudentsInfo> studentsList = new ArrayList<StudentsInfo>();
 //        String currentDirectory = System.getProperty("user.dir");
-        String filePath = ".\\src\\students.txt";
+        String filePath = ".\\students.txt";
         StudentsInfo tempInfo = new StudentsInfo();
         try {
             String data = new String(Files.readAllBytes(Paths.get(filePath)), Charset.defaultCharset());
@@ -119,6 +119,7 @@ public class Main {
         if(args == "") {    //input provided from the console
             Scanner scan = new Scanner(System.in);
             userInput = scan.nextLine();
+            // scan.close();
         }else{  //input provided from the Test script
             userInput = args;
         }

@@ -1,0 +1,58 @@
+/ CSC 365
+// Lab 1-a test suite
+// TC-1
+// Tests Requirements R3, R4
+// short form command name, existing student
+// expected output: LastName: GUICE firstName: CODI Grade: 4 ClassRoom Assignment: 112 T_FirstName: PERLA T_LastName: CHIONCHIO
+student: GUICE
+// TC-2
+// Tests Requirements R3, R4
+// short form command name, non-existing student
+// expected output: <empty line>
+Student: tiwari
+// TC-3
+// Tests Requirments R3, R12
+// quit command
+// expected output: program terminates
+Q
+// TC-4
+// Tests Requirments R3, R5
+// short form command name, existing student
+// expected output: LastName: SAELEE firstName: DANILO Bus Route: 54
+student: saelee bus
+// TC-5
+// Tests Requirments R3, R6
+// short form command name, existing teacher
+// expected output: LastName: WORBINGTON first name: DEEDRA
+ //LastName: SPANICEK first name: KENDRA
+ //LastName: GUICE first name: CODI
+ //LastName: GLOR first name: HUNG
+ //LastName: GUM first name: NOAH
+ //LastName: NOVICK first name: ROLLAND
+ //LastName: DELUNA first name: KRYSTAL
+ //LastName: COMO first name: ZANDRA
+teacher: CHIONCHIO
+// TC-6
+// Tests Requirements R3, R9
+// short form command name, existing student grade, high/low
+// expected output: LastName: CIGANEK firstName: MANIE Grade: 3 GPA: 2.79 T_FirstName: ROCIO T_LastName: FAFARD Bus Route: 53
+grade: 3 low
+//TC-7
+// Tests Requirements R3, R10
+// short form command name, existing student grade average,
+// expected output:  GradeLevel: 3 Average Gpa computed: 3.048888888888889
+average: 3
+// TC-8
+// Tests Requirments R3, R11
+// quit command
+// expected output: Grade: 5 Number of Students: 0
+//Grade: 1 Number of Students: 2
+//Grade: 3 Number of Students: 9
+//Grade: 2 Number of Students: 13
+//Grade: 4 Number of Students: 15
+//Grade: 6 Number of Students: 21
+info
+
+
+//for more detailed test, run the test.java file
+

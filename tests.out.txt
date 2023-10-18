@@ -1,0 +1,299 @@
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+student: early
+LastName: EARLY firstName: TORY Grade: 3 ClassRoom Assignment: 107 T_FirstName: ROCIO T_LastName: FAFARD
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+student: tiwari
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+student: Bean bus
+LastName: BEAN firstName: INGER Bus Route: 56
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+teacher: Hamer
+ LastName: LIBRANDI first name: TODD
+
+
+ LastName: HAVIR first name: BOBBIE
+
+
+ LastName: SARAO first name: DIEDRA
+
+
+ LastName: VANCOTT first name: MIKE
+
+
+ LastName: WICINSKY first name: TERESE
+
+
+ LastName: KOZOLA first name: BUSTER
+
+
+ LastName: MULLINGS first name: LEIGHANN
+
+
+ LastName: BUSSMANN first name: BILLY
+
+
+ LastName: BERBES first name: DICK
+
+
+ LastName: MULGREW first name: RANDELL
+
+
+ LastName: TOWLEY first name: LANE
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+teacher: test
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+bus: 55
+ LastName: SWEDLUND first name: SHARRI Grade: 3 ClassRoom: 107
+
+
+ LastName: ZAPPAVIGNA first name: ELLIOTT Grade: 6 ClassRoom: 106
+
+
+ LastName: SAENPHIMMACHA first name: NUMBERS Grade: 6 ClassRoom: 111
+
+
+ LastName: BOYTER first name: WAN Grade: 6 ClassRoom: 102
+
+
+ LastName: KOZOLA first name: BUSTER Grade: 2 ClassRoom: 108
+
+
+ LastName: DEMARTINI first name: DEWAYNE Grade: 6 ClassRoom: 102
+
+
+ LastName: BEX first name: TAMESHA Grade: 4 ClassRoom: 105
+
+
+ LastName: WERST first name: LEON Grade: 6 ClassRoom: 111
+
+
+ LastName: LAMKIN first name: TAMA Grade: 6 ClassRoom: 111
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+bus: 0
+ LastName: SCHOENECKER first name: PHUONG Grade: 6 ClassRoom: 109
+
+
+ LastName: FINCHMAN first name: MATHILDA Grade: 6 ClassRoom: 111
+
+
+ LastName: BRODERSEN first name: HYE Grade: 3 ClassRoom: 110
+
+
+ LastName: HAVIR first name: BOBBIE Grade: 2 ClassRoom: 108
+
+
+ LastName: MASSART first name: ELDON Grade: 4 ClassRoom: 105
+
+
+ LastName: GARTH first name: JOHN Grade: 1 ClassRoom: 103
+
+
+ LastName: CREMEANS first name: RANDOLPH Grade: 6 ClassRoom: 109
+
+
+ LastName: KREESE first name: CARRIE Grade: 6 ClassRoom: 109
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+grade: 2
+LastName: WOOLERY first name: NOLAN
+
+
+LastName: VILARDO first name: EMMANUEL
+
+
+LastName: LIBRANDI first name: TODD
+
+
+LastName: HAVIR first name: BOBBIE
+
+
+LastName: SARAO first name: DIEDRA
+
+
+LastName: VANCOTT first name: MIKE
+
+
+LastName: WICINSKY first name: TERESE
+
+
+LastName: KOZOLA first name: BUSTER
+
+
+LastName: MULLINGS first name: LEIGHANN
+
+
+LastName: BUSSMANN first name: BILLY
+
+
+LastName: BERBES first name: DICK
+
+
+LastName: MULGREW first name: RANDELL
+
+
+LastName: TOWLEY first name: LANE
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+grade: 3 high
+LastName: SWEDLUND firstName: SHARRI Grade: 3 GPA: 3.24 T_FirstName: ROCIO T_LastName: FAFARD Bus Route: 55
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+average: 1
+ GradeLevel: 1 Average Gpa computed: 2.995
+
+
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+info
+Grade: 5 Number of Students: 0
+Grade: 1 Number of Students: 2
+Grade: 3 Number of Students: 9
+Grade: 2 Number of Students: 13
+Grade: 4 Number of Students: 15
+Grade: 6 Number of Students: 21
+Select the option followed by the search parameter:
+1)Student
+2)Teacher
+3)Bus
+4)Grade
+5)Average
+6)Info
+7)Quit
+Enter the Searchable parameters seperated by `spaces`. 
+
+EX: `student: woolery bus` 
+ `s:` woolery bus
+quit
+
+Process finished with exit code 0

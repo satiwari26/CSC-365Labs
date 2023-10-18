@@ -1,0 +1,35 @@
+//source 1:
+https://www.kaggle.com/datasets/fernandol/countries-of-the-world
+//person produced this data set:
+FERNANDO LASSO · UPDATED 5 YEARS AGO
+
+//source 2:
+https://www.kaggle.com/datasets/lasaljaywarden/global-food-prices-dataset
+//person produced this data set:
+LASAL JAYAWARDENA · UPDATED 2 YEARS AGO
+
+//source 3:
+https://www.kaggle.com/datasets/joebeachcapital/food-waste
+//person who produced this data set:
+JOAKIM ARVIDSSON · UPDATED 2 MONTHS AGO
+
+//Country Data table
+I have the Country Data table that contains the data of the country, it's population, Density, Net migration, Literacy %. This is useful to make
+connection of each country's GDP and how population is affecting it.
+
+//Global Food Price Data
+This table contains information about the Global Price Data of the country, it contains country name, state name, price of food based on the region. The tables Country
+attribute references the Country data table primary key which is Country.
+
+//Food waste Data set
+This table contains information about the food wastage table and houseHold estimate, Retail estimate etc. This is also useful when making connection with the country table.
+This table also uses the country attribute as a Foreign key to make reference with country table - Country attribute. 
+
+//Challenges I faced
+The data set was huge and I didn't know how much data to add into the table so I have to create a script to make the dataset small. Since I modified the dataset
+I changed the primary key of the table since that change the uniquness of the table.
+
+//Three non trivial information:
+
+This relation helps in answering the question about the net cost of the families in different countries. The food prices that families can afford and how much food
+is wasted each year in each of these countries.
