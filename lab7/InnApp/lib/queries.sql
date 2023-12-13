@@ -40,7 +40,19 @@ as nextAvailableCheckin where dayDiffdata > 1 group by room;
 
 select DATEDIFF(checkout,checkin) as lengthInDays, checkout as mostRecentCheckout,roomcode from(select *,max(reservations.checkout) over(partition by room) as maxCheckout from rooms join reservations on rooms.roomcode = reservations.room) as recentStay where maxCheckout = checkout
 
--- section one combined query data
+-- FR2
+
+
+
+-- FR3 Reservation Cancellation
+select * from reservations
+
+-- delete from the table based on the required reservations
+DELETE FROM reservations WHERE given_reserv_code;
+
+
+-- FR4 Detailed Reservation Information
+select code,room,checkin,checkout,rate,lastname,firstname,adults,kids,roomname,decor from rooms join reservations on reservations.room = rooms.roomcode where 1=1
 
 
 

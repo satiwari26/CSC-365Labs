@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import DataStorage.ReservationsInfo;
 import DataStorage.RoomInfo;
 
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ public class App{
             String query = "USE INN";
             ResultSet resultset = statement.executeQuery(query);
 
-            //fetching the popularity of the Rooms-----------------------------------------------------------------
+            // 1) Rooms and Rates-----------------------------------------------------------------
             RoomsData DataRoom = new RoomsData();
             
             //popularity query
@@ -76,14 +77,22 @@ public class App{
                 }
             }
 
-            //data set is ready to be displayed at this point
-            for(int i=0;i<DataRoom.suggestedRoom.size();i++){
-                System.out.println(DataRoom.suggestedRoom.get(i));
+            // 2) reservation requirement------------------------------------------------------------------------------------
+            query = "select * from reservations";
+            resultset = statement.executeQuery(query);
+            while(resultset.next()){
+                ReservationsInfo reserv = new ReservationsInfo();
+                reserv.setReservationCode(resultset.getInt("CODE"));
+                //adding each reservation code to RoomsData
+                DataRoom.reservations.add(reserv);
             }
 
+            // 3) reservation code --------------------------------------------------------
+            Detailedreservation detailReserv = new Detailedreservation();
+
+            detailReserv.DetailedReserv(connection);
 
 
-            //------------------------------------------------------------------------------------
 
             connection.close(); // Close the connection when done
         } catch (ClassNotFoundException | SQLException e) {
