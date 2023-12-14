@@ -16,12 +16,12 @@ public class Detailedreservation {
 
     public void DetailedReserv (Connection connection) throws SQLException{
 
-        this.setFirstName("RHEA");
+        this.setFirstName("");
         this.setLastName("");
         this.setcheckin("");
         this.setcheckout("");
         this.setRoomCode("");
-        this.setReservationCode("");
+        this.setReservationCode("10500");
 
 
         ArrayList<DetailReservationInfo> reservinfo = new ArrayList<DetailReservationInfo>();
@@ -97,10 +97,10 @@ public class Detailedreservation {
             reservinfo.add(detailInfo);
         }
 
-        System.out.println(reservinfo);
-
+        System.out.println("");
         if(!hasRows){
             System.out.println("No such data set is found in the database");
+            return;
         }
     }
 

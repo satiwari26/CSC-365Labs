@@ -55,5 +55,14 @@ DELETE FROM reservations WHERE given_reserv_code;
 select code,room,checkin,checkout,rate,lastname,firstname,adults,kids,roomname,decor from rooms join reservations on reservations.room = rooms.roomcode where 1=1
 
 
+-- FR5 Revenue information
+    -- split month one
+select *,sum(secondMonthPrice) as setPrice from (select room as checkoutRoom,checkoutMonth, (checkoutDays * rate) as secondMonthPrice from (select *, case When DATEDIFF(maxCheckinDate,checkin) = 0 then 1 ELSE DATEDIFF(maxCheckinDate,checkin) END as checkinDays, case WHEN DATEDIFF(checkout,minCheckoutDate) = 0 then 1 ELSE DATEDIFF(checkout,minCheckoutDate) END as checkoutDays from (select *,LAST_DAY(checkin) as maxCheckinDate, LAST_DAY(checkout) - INTERVAL (DAY(LAST_DAY(checkout)) - 1) DAY AS minCheckoutDate from (select *,monthName(checkin) as checkinMonth,monthName(checkout) as checkoutMonth from rooms join reservations on rooms.roomcode = reservations.room) as monthsName where checkinMonth != checkoutMonth) as minMaxDays) as daysofMonth) as checkoutData group by checkoutRoom,checkoutMonth;
+    -- split month two
+select *,sum(firstMonthPrice) as checkinMonthPrice from (select room as checkinRoom,checkinMonth,(checkinDays * rate) as firstMonthPrice from (select *, case When DATEDIFF(maxCheckinDate,checkin) = 0 then 1 ELSE DATEDIFF(maxCheckinDate,checkin) END as checkinDays, case WHEN DATEDIFF(checkout,minCheckoutDate) = 0 then 1 ELSE DATEDIFF(checkout,minCheckoutDate) END as checkoutDays from (select *,LAST_DAY(checkin) as maxCheckinDate, LAST_DAY(checkout) - INTERVAL (DAY(LAST_DAY(checkout)) - 1) DAY AS minCheckoutDate from (select *,monthName(checkin) as checkinMonth,monthName(checkout) as checkoutMonth from rooms join reservations on rooms.roomcode = reservations.room) as monthsName where checkinMonth != checkoutMonth) as minMaxDays) as daysofMonth) as checkinData group by checkinRoom, checkinMonth
+-- non split moth price
+select *,sum(spentMoney) as expectedMoney from(select room,checkinMonth,daysSpent*rate as spentMoney from(select *,DATEDIFF(checkout,checkin) as daysSpent from(select *,monthName(checkin) as checkinMonth,monthName(checkout) as checkoutMonth from rooms join reservations on rooms.roomcode = reservations.room) as monthsName where checkinMonth = checkoutMonth) as daysCounted) as priceMoney group by room, checkinMonth
 
-----------------------------------------------------------------------------------------------------------------
+-- total room price
+select room,sum(amountPaid) as totalRoomPrice from(select *,days*rate as amountPaid from(select *,DATEDIFF(checkout,checkin) as days from reservations) as daysSpend) as amountTaken group by room
+;----------------------------------------------------------------------------------------------------------------

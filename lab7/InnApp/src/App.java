@@ -78,20 +78,19 @@ public class App{
             }
 
             // 2) reservation requirement------------------------------------------------------------------------------------
-            query = "select * from reservations";
-            resultset = statement.executeQuery(query);
-            while(resultset.next()){
-                ReservationsInfo reserv = new ReservationsInfo();
-                reserv.setReservationCode(resultset.getInt("CODE"));
-                //adding each reservation code to RoomsData
-                DataRoom.reservations.add(reserv);
-            }
 
-            // 3) reservation code --------------------------------------------------------
+            // 3) Cancel Reservation  ----------------------------------------------------------------------------
+            // ReservationCancellation cancellation = new ReservationCancellation();
+            // cancellation.CancelReservation(connection, 0);
+
+            // 4) Detailed reservation information --------------------------------------------------------
             Detailedreservation detailReserv = new Detailedreservation();
 
             detailReserv.DetailedReserv(connection);
 
+            // 5) revenue information --------------------------------------------------------
+            RevenueInfo revInfo = new RevenueInfo();
+            revInfo.calcRev(connection);
 
 
             connection.close(); // Close the connection when done
