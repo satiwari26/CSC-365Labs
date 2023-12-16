@@ -14,7 +14,7 @@ public class Detailedreservation {
     private String RoomCode;
     private String ReservationCode;
 
-    public void DetailedReserv (Connection connection) throws SQLException{
+    public void DetailedReserv (Connection connection, String firstName, String lastName,String checkin, String checkout, String RoomCode,String ReservationCode) throws SQLException{
 
         this.setFirstName("");
         this.setLastName("");
@@ -97,10 +97,24 @@ public class Detailedreservation {
             reservinfo.add(detailInfo);
         }
 
-        System.out.println("");
         if(!hasRows){
             System.out.println("No such data set is found in the database");
             return;
+        }
+
+        for(int i=0;i<reservinfo.size();i++){
+            System.out.println("Code: " + reservinfo.get(i).getCode());
+            System.out.println("Room: " + reservinfo.get(i).getRoom());
+            System.out.println("Checkin: " + reservinfo.get(i).getCheckin());
+            System.out.println("Checkout: " + reservinfo.get(i).getCheckout());
+            System.out.println("Rate: " + reservinfo.get(i).getRate());
+            System.out.println("Lastname: " + reservinfo.get(i).getLastname());
+            System.out.println("Firstname: " + reservinfo.get(i).getFirstname());
+            System.out.println("Adults: " + reservinfo.get(i).getAdults());
+            System.out.println("Kids: " + reservinfo.get(i).getKids());
+            System.out.println("Roomname: " + reservinfo.get(i).getRoomname());
+            System.out.println("Decor: " + reservinfo.get(i).getDecor());
+            System.out.println("--------------------------------------------------");
         }
     }
 

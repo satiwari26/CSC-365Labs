@@ -7,9 +7,13 @@ import DataStorage.ReservationsInfo;
 import DataStorage.RoomInfo;
 
 import java.sql.ResultSet;
+import java.util.Scanner;
 
 
 public class App{
+    public static boolean exit;
+
+    public boolean dataRoomFlag;
     public static void main(String[] args) {
         String url = System.getenv("HP_JDBC_URL");
         String username = System.getenv("HP_JDBC_USER");
@@ -77,20 +81,13 @@ public class App{
                 }
             }
 
-            // 2) reservation requirement------------------------------------------------------------------------------------
+            exit = true;
 
-            // 3) Cancel Reservation  ----------------------------------------------------------------------------
-            // ReservationCancellation cancellation = new ReservationCancellation();
-            // cancellation.CancelReservation(connection, 0);
-
-            // 4) Detailed reservation information --------------------------------------------------------
-            Detailedreservation detailReserv = new Detailedreservation();
-
-            detailReserv.DetailedReserv(connection);
-
-            // 5) revenue information --------------------------------------------------------
-            RevenueInfo revInfo = new RevenueInfo();
-            revInfo.calcRev(connection);
+            while (exit) {
+                printOptions();
+                getUserInput(DataRoom,connection);
+                
+            }
 
 
             connection.close(); // Close the connection when done
@@ -98,4 +95,84 @@ public class App{
             e.printStackTrace();
         }
     }
+
+
+    public static void printOptions() {
+    System.out.println("Options: Enter the number of your choice");
+    System.out.println("1) Rooms and Rates");
+    System.out.println("2) Booking Reservation");
+    System.out.println("3) Reservation Cancellation");
+    System.out.println("4) Detailed Reservation Information");
+    System.out.println("5) Revenue");
+    System.out.println("6) Exit");
+    }
+
+    public static void getUserInput(RoomsData DataRoom,Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+
+        // Process user input based on the chosen option
+        switch (choice) {
+            case 1:
+                for(int i=0;i<DataRoom.suggestedRoom.size();i++){
+                    RoomInfo tempData = DataRoom.suggestedRoom.get(i);
+                    System.out.println("Room Code: " + tempData.getRoomCode());
+                    System.out.println("Room Name: " + tempData.getRoomName());
+                    System.out.println("Number of Beds: " + tempData.getBeds());
+                    System.out.println("Bed Type: " + tempData.getBedType());
+                    System.out.println("Max Occupancy: " + tempData.getMaxOcc());
+                    System.out.println("Base Price: " + tempData.getBasePrice());
+                    System.out.println("Decor: " + tempData.getDecor());
+                    System.out.println("Room Popularity: " + tempData.getRoomPopularity());
+                    System.out.println("Next Checkin Date: " + tempData.getNextCheckinDate());
+                    System.out.println("Most Recent Checkout Date: " + tempData.getCheckOutdate());
+                    System.out.println("Length of Stay: " + tempData.getLengthDays());
+                    System.out.println("--------------------------------------------------");
+                }
+                break;
+            case 2:
+                // BookingReservation booking = new BookingReservation();
+                // booking.Bookreservations(connection);
+                System.out.print("Partially working");
+                break;
+            case 3:
+                System.out.print("Enter the reservation code: ");
+                int reservCode = scanner.nextInt();
+                ReservationCancellation cancellation = new ReservationCancellation();
+                cancellation.CancelReservation(connection, reservCode);
+                break;
+            case 4:
+                System.out.print("Enter FirstName: ");
+                String firstName = scanner.next();
+                System.out.print("Enter LastName: ");
+                String lastName = scanner.next();
+                System.out.print("Enter Checkin Date: ");
+                String checkin = scanner.next();
+                System.out.print("Enter Checkout Date: ");
+                String checkout = scanner.next();
+                System.out.print("Enter Room Code: ");
+                String RoomCode = scanner.next();
+                System.out.print("Enter Reservation Code: ");
+                String ReservationCode = scanner.next();
+
+                Detailedreservation detailReserv = new Detailedreservation();
+                detailReserv.DetailedReserv(connection, firstName, lastName, checkin, checkout, RoomCode, ReservationCode);
+                break;
+            case 5:
+                RevenueInfo revInfo = new RevenueInfo();
+                revInfo.calcRev(connection);
+                break;
+            case 6:
+                System.out.println("Exiting...");
+                exit = false;
+                break;
+            default:
+                System.out.println("Invalid choice!");
+                break;
+        }
+
+        scanner.close();
+    }
 }
+

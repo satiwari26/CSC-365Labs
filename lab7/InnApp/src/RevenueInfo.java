@@ -235,7 +235,6 @@ public class RevenueInfo {
                 }
             }
         }
-
         for(RevenueData d : revData){
             this.totalJanPrice += d.getJanPrice();
             this.totalFebPrice += d.getFebPrice();
@@ -252,6 +251,14 @@ public class RevenueInfo {
             this.totalSumRoomPrice += d.getTotalRoomPrice();
         }
 
+
+        System.out.println("Revenue data split by month:");
+        System.out.println("ROOM    |    JAN    |    FEB    |    MAR    |    APR    |    MAY    |    JUN    |    JUL    |    AUG    |    SEP    |    OCT    |    NOV    |    DEC    |   TOTALYEARLYREVENUE");
+        for(int i=0;i<revData.size();i++){
+            System.out.print(revData.get(i).getRoom() + "   |   " + revData.get(i).getJanPrice() + "   |   " + revData.get(i).getFebPrice() + "   |   " + revData.get(i).getMarPrice() + "   |   " + revData.get(i).getAprPrice() + "   |   " + revData.get(i).getMayPrice() + "   |   " + revData.get(i).getJunPrice() + "   |   " + revData.get(i).getJulPrice() + "   |   " + revData.get(i).getAugPrice() + "   |   " + revData.get(i).getSepPrice() + "   |   " + revData.get(i).getOctPrice() + "   |   " + revData.get(i).getNovPrice() + "   |   " + revData.get(i).getDecPrice() + "   |   " + revData.get(i).getTotalRoomPrice());
+        }
+        System.out.println("Total Monthly Rev: " + this.totalJanPrice + "   |   " + this.totalFebPrice + "   |   " + this.totalMarPrice + "   |   " + this.totalAprPrice + "   |   " + this.totalMayPrice + "   |   " + this.totalJunPrice + "   |   " + this.totalJulPrice + "   |   " + this.totalAugPrice + "   |   " + this.totalSepPrice + "   |   " + this.totalOctPrice + "   |   " + this.totalNovPrice + "   |   " + this.totalDecPrice + "   |   " + this.totalSumRoomPrice);
+        
 
     }
 }

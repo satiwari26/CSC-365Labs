@@ -1,18 +1,9 @@
-## Getting Started
+## setup and JDBC URL:
+HP_JDBC_URL - "jdbc:mysql://db.labthreesixfive.com/amustang?autoReconnect=true&useSSL=false"
+HP_JDBC_USER - "YOUR_CALPOLY_USERNAME"
+HP_JDBC_PW - "YOUR PASSOWORD TO ACCESS 365 website"
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+note -: Remove amustang with your username in JDBC_URL
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Compiling and Running the program:
+please make sure to compile the App.java with mysql-connector-java.jar file

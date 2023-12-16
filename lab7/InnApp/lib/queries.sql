@@ -66,3 +66,10 @@ select *,sum(spentMoney) as expectedMoney from(select room,checkinMonth,daysSpen
 -- total room price
 select room,sum(amountPaid) as totalRoomPrice from(select *,days*rate as amountPaid from(select *,DATEDIFF(checkout,checkin) as days from reservations) as daysSpend) as amountTaken group by room
 ;----------------------------------------------------------------------------------------------------------------
+
+
+-- need to fetch the rooms that are booked within the specified range
+SELECT * FROM rooms r1 WHERE NOT EXISTS (SELECT * FROM rooms JOIN reservations ON reservations.room = rooms.roomcode WHERE checkin >= '2010-10-08' AND checkout <= '2010-10-14' AND r1.roomcode = rooms.roomcode GROUP BY roomcode);
+
+-- fetching the day based on the checkin and checkout date and the number of days
+select * from(select *, (checkin - dateDelay) as openDay from (select *, COALESCE(prevCheckout,checkin) as dateDelay from (select *,lag(checkout,1) over(partition by room order by checkin) as prevCheckout from rooms join reservations on rooms.roomcode = reservations.room) as datesModi) as bookdays) oday where openDay >=4;
