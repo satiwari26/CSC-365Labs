@@ -1,3 +1,3 @@
-Run the program from the current dir.
+# CSC 365 labs
 
-if running the program from src dir, please make sure that students.txt file location is correct as well.
+## my solution to csc365 course.
